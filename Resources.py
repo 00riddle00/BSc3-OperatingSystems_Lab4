@@ -4,9 +4,9 @@ class Resources:
     res_supervisor_mem = 0
     res_user_mem = 0
     res_channel_dev = 1
-    res_load_prog_hdd_to_smem = 0
+    res_load_prog_hdd_to_smem = ''
     res_load_fin_hdd_to_smem = 0
-    res_load_prog_smem_to_umem = 0
+    res_load_prog_smem_to_umem = ''
     res_load_fin_smem_to_umem = 0
     res_task_in_smem = 0
     res_user_interface = 0

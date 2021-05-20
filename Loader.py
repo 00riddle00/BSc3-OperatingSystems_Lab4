@@ -9,7 +9,7 @@ class Loader:
     #   ready   =  1
     #   running =  2
     stage = 0
-
+    fileName = ''
     # Possible blocked states:
     # unblocked = 0
     # user_input = 1
@@ -28,19 +28,24 @@ class Loader:
         self.blocked_state = 1
 
     def unblock(self):
-        if(self.resources.get_res_load_prog_hdd_to_smem == True & self.blocked_state == 0):
+        if(self.resources.get_res_load_prog_hdd_to_smem == '' & self.blocked_state == 1):
             sleep(1)
-            self.blocked_state = 1
+            print("Waiting res_load_prog_hdd_to_smem")
+        else:
+            self.fileName = self.resources.get_res_load_fin_hdd_to_smem()
             self.resources.set_res_load_prog_hdd_to_smem(0)
-            print("Got resource res_load_prog_hdd_to_smem -> stage 1")
-        elif(self.resources.get_res_channel_dev == True & self.blocked_state == 1):
-            sleep(1)
             self.blocked_state = 2
+            print("Got resource res_load_prog_hdd_to_smem  @"+self.fileName+"@  -> stage 1")
+        if(self.resources.get_res_channel_dev == False & self.blocked_state == 2):
+            sleep(1)
+            print("Waiting res_channel_dev")
+        else:
+            self.blocked_state = 1
             self.resources.set_res_channel_dev(4)
             print("Got resource res_channel_dev -> stage 2")
 
-        # Atlaisvinam ""
-        self.resources.set_res_channel_dev(1)
-        # Atlaisvinam ""
-        self.resources.set_res_load_prog_hdd_to_smem(1)
+            # Atlaisvinam ""
+            self.resources.set_res_channel_dev(1)
+            # Atlaisvinam ""
+            self.resources.set_res_load_prog_hdd_to_smem(1)
 
