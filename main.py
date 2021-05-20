@@ -15,6 +15,7 @@ if __name__ == '__main__':
     #     elif:
 
     start_stop = StartStop()
+    # resources = start_stop.resources
     start_stop.start()
 
     read_from_interface = start_stop.child_processes[0]
@@ -27,3 +28,13 @@ if __name__ == '__main__':
     # has entered the name of the program, possibly with parameters
     loader = start_stop.child_processes[1]
     loader.unblock()
+
+    if Resources.res_load_fin_hdd_to_smem:
+        # read_from_interface process is notified about
+        # the successful loader operation and writes
+        # a success message
+        read_from_interface.unblock()
+
+    # read_from_interface.unblock()  # read user input once again
+    # if Resources.res_mos_end:  # if user input is 'shutdown', the OS powers off
+    #     start_stop.unblock()

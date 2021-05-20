@@ -31,18 +31,8 @@ class ReadFromInterface:
             if self.user_input == 'shutdown':
                 self.resources.set_res_mos_end(1)
             else:
-                self.resources.set_res_load_prog_hdd_to_smem(1)
+                self.resources.set_res_load_prog_hdd_to_smem(self.user_input)
                 self.blocked_state = 2
         elif self.blocked_state == 2:
-            self.copy_block_to_supervisor_memory()
+            print("[ReadFromInterface]: The program is now in supervisor memory")
             self.blocked_state = 1
-
-    @staticmethod
-    def get_user_input():
-        user_input = input("Enter command: ")
-        return user_input
-
-    def copy_block_to_supervisor_memory(self):
-        print("Copied block to supervisor memory")
-
-# ReadFromInterface -> block
