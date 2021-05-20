@@ -1,6 +1,6 @@
 from time import sleep
 
-import ReadFromInterface, ResourceTable
+import ReadFromInterface, Resources
 
 class StartStop:
 
