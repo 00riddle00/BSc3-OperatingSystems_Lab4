@@ -68,3 +68,16 @@ Procesų būsenos:
 # =========================================
 # ReadFromInterface (rf)
 # =========================================
+
+ReadFromInterface – procesas, kopijuojantis duomenų blokus iš išorinės atminties į supervizorinę
+ir atiduodantis šiuos blokus tolesniam apdorojimui Checker procesui. Kuriamas ir naikinamas StartStop proceso.
+ReadFromInterface procesas laukia įvedimo srauto iš vartotojo – įvesto failo pavadinimo, kuriame yra programa,
+ir galimai jai paduotų parametrų.
+
+**
+1. ReadFromInterface blokuojasi ("praso") laukdamas "res_user_interface" resurso.
+2. Failo nuskaitymas ir suskaidymas blokais
+3. ReadFromInterface blokuojasi ("praso") laukdamas "res_supervisor_mem" resurso.
+4. BLokų kopijavimas į supervizorinę atmintį
+5. Atlaisvinamas resursas "res_load_prog_hdd_smem"
+
