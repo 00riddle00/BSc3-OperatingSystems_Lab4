@@ -28,7 +28,7 @@ class ReadFromInterface:
     def unblock(self):
         if self.blocked_state == 1:
             self.user_input = input("Enter command: ")
-            if self.user_input == 'shutdown':
+            if self.user_input == 'poweroff':
                 self.resources.set_res_mos_end(1)
             else:
                 self.resources.set_res_load_prog_hdd_to_smem(self.user_input)

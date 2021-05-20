@@ -1,10 +1,9 @@
-import os
-from subprocess import call
-from time import sleep
+from config import cls, _sleep, clear_line
 
 from ReadFromInterface import ReadFromInterface
 from Resources import Resources
 from Loader import Loader
+
 
 class StartStop:
     child_processes = []
@@ -25,105 +24,137 @@ class StartStop:
 
     def start(self):
         # RunningProcessTable.add(self)
-        # self.clear()
-        # sleep(0.2)
+        cls()
+        _sleep(0.2)
         print("Booting up.", end='\r')
-        # sleep(0.5)
+        _sleep(0.5)
         print("Booting up..", end='\r')
-        # sleep(0.5)
+        _sleep(0.5)
         print("Booting up...", end='\r')
-        # sleep(0.5)
+        _sleep(0.5)
+        clear_line()
         print("Booting up.", end='\r')
-        # sleep(0.5)
+        _sleep(0.5)
         print("Booting up..", end='\r')
-        # sleep(0.5)
+        _sleep(0.5)
         print("Booting up...", end='\r')
-        # sleep(1)
-        # self.clear()
-        # sleep(0.5)
+        _sleep(0.7)
+        cls()
+        _sleep(0.5)
 
         print("StartStop process has started")
-        # sleep(0.5)
+        _sleep(0.5)
 
-        self.resources = self.Sys_Resources_Initialization()
+        self.Sys_Resources_Initialization()
         self.Sys_Process_Initialization()
 
-        # self.clear()
+        cls()
         print("===============================")
         print("       Welcome to the OS!      ")
         print("===============================")
+        _sleep(0.2)
 
         self.blocked_state = 1
 
     def unblock(self):
         if self.blocked_state == 1:
-            self.Sys_Resources_Destruction()
             self.Sys_Process_Destruction()
+            self.Sys_Resources_Destruction()
             print("Shutting down.", end='\r')
-            # sleep(0.5)
+            _sleep(0.5)
             print("Shutting down..", end='\r')
-            # sleep(0.5)
-            print("Shutting down...")
-            # sleep(0.5)
-            # self.clear()
+            _sleep(0.5)
+            print("Shutting down...", end='\r')
+            _sleep(0.5)
+            clear_line()
+            print("Shutting down")
+            _sleep(0.2)
+            print("Goodbye!")
+            _sleep(0.7)
+            cls()
 
     def Sys_Resources_Initialization(self):
+        print("Creating System Resources.", end='\r')
+        _sleep(0.4)
+        print("Creating System Resources..", end='\r')
+        _sleep(0.4)
+        print("Creating System Resources...", end='\r')
+        _sleep(0.4)
+        clear_line()
+        print("Creating System Resources.", end='\r')
+        _sleep(0.8)
+        clear_line()
         print("Creating System Resources")
-        # sleep(0.5)
-        resources = Resources()
+        self.resources = Resources()
         print("System Resources have been created")
-        return resources
+        _sleep(0.5)
 
     def Sys_Process_Initialization(self):
         print("System Process Initialization", end='\r')
-        # sleep(0.5)
+        _sleep(0.5)
         print("System Process Initialization.", end='\r')
-        # sleep(0.5)
+        _sleep(0.5)
         print("System Process Initialization..", end='\r')
-        # sleep(0.5)
+        _sleep(0.5)
         print("System Process Initialization...", end='\r')
-        # sleep(0.5)
+        _sleep(0.5)
         print("System Process Initialization....", end='\r')
-        # sleep(0.5)
-        print("System Process Initialization.....")
-        # sleep(0.5)
+        _sleep(0.5)
+        print("System Process Initialization.....", end='\r')
+        _sleep(0.5)
+        clear_line()
+        print("System Process Initialization.", end='\r')
+        _sleep(0.5)
+        print("System Process Initialization..", end='\r')
+        _sleep(0.3)
+        clear_line()
+        print("System Process Initialization")
+        _sleep(0.2)
 
         read_from_interface = ReadFromInterface(self.resources)
         loader = Loader(self.resources)
         self.child_processes.append(read_from_interface)
         self.child_processes.append(loader)
         print("Process ReadFromInterface initialized")
-        # sleep(0.3)
+        _sleep(0.3)
         print("Process PrintLine initialized")
-        # sleep(0.2)
+        _sleep(0.1)
         print("Process Interrupt initialized")
-        # sleep(0.1)
+        _sleep(0.15)
         print("Process MainProc initialized")
-        # sleep(0.05)
+        _sleep(0.05)
         print("Process Loader initialized")
-        # sleep(0.05)
+        _sleep(0.1)
         print("Process Checker initialized")
-        # sleep(0.2)
+        _sleep(0.2)
         print("Process JobToMemory initialized")
-        # sleep(0.1)
+        _sleep(0.1)
         print("Process InputOutput initialized")
-        # sleep(0.05)
+        _sleep(0.15)
         print("System Processes have been initialized")
-        # sleep(0.05)
+        _sleep(0.5)
+        cls()
 
     def Sys_Process_Destruction(self):
+        print(".", end='\r')
+        _sleep(0.5)
+        clear_line()
+        print("", end='\r')
+        _sleep(0.5)
+
+        print(".", end='\r')
+        _sleep(0.5)
+        clear_line()
+        print("")
+        _sleep(0.5)
+
         print("Sys_Process_Destruction")
-        # sleep(0.5)
+        _sleep(0.5)
         # for process in self.created_processes:
         #     OS.kill_process(process)
 
     def Sys_Resources_Destruction(self):
         print("Sys_Resources_Destruction")
-        # sleep(0.5)
+        _sleep(0.5)
         # for resource in self.created_resources:
         #     OS.kill_resource(resource)
-
-    def clear(self):
-        # check and make call for specific operating system
-        _ = call('clear' if os.name =='posix' else 'cls')
-
