@@ -1,4 +1,6 @@
+# =========================================
 # Bendrai apie procesus
+# =========================================
 
 Priklausomai nuo prioriteto anksčiau ar vėliau procesas 
 bus atblokuotas ir tęs darbą.
@@ -11,19 +13,31 @@ Procesų būsenos:
     * Pasiruošęs – turi visus reikalingus resursus ir vienintelis trūkstamas resursas yra procesorius.
     * Sustabdytas (blokuotas sustabdytas ir pasiruošęs sustabdytas) – kito proceso sustabdytas procesas.
 
+# =========================================
 # StartStop (ss)
+# =========================================
 
 * ss is autoloaded on boot (as a root process)
     1. ss gauna procesoriu
     2. Tuomet ss sukuria:
-       ** sist. resursus (pirma resursus sukuria)
-            naudoja primityva "kurti procesa"
-       ** kitus sist. procesus
-            (StartStop darbo pradzioje sukuria beveik visus procesus)
+       ** kitus sist. procesus (pirma procesus sukuria)
+           (StartStop darbo pradzioje sukuria beveik visus procesus)
+           naudoja primityva "kurti procesa"
+       
+               ReadFromInterface
+               Checker
+               Loader
+               MainProc
+               Interrupt
+               InputOutput
+               PrintLine
+               OS
+               JobToMemory
+
+       ** sist. resursus
             naudoja primityva "kurti resursa"
 
 * StartStop blokuojasi ("praso") laukdamas pranešimo apie OS darbo pabaigą.
-    StartStop (priklausomai nuo prioriteto)
     Tuomet naikina:
         ** kitus sist. procesus (pirma procesus naikina)
               naudoja primityva "naikinti procesa"
@@ -34,7 +48,7 @@ Procesų būsenos:
     JobGovernor  (ji kuria MainProc)
     VirtualMachine  (ji kuria JobGovernor)
 
-## StartStop langas
+## StartStop "langas"
     Vartotojo sąsaja – tai būdas stebėti ir įtakoti
     Įvedimo ir išvedimo srautai jungia modelį su vartotojo sąsaja.
     iš galimų vartotojo sąsajos realizacijų.
@@ -50,3 +64,7 @@ Procesų būsenos:
     pranešimai, bei įvedamos komandos sistemai (pavyzdžiui, paleisti tam tikrą 
     vartotojo programą). Virtualios mašinos langai – tai būdas virtualiai 
     mašinai gauti įvedimą iš išorės bei parodyti jos išvedamą informaciją.
+
+# =========================================
+# ReadFromInterface (rf)
+# =========================================
