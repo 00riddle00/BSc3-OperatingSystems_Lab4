@@ -1,6 +1,6 @@
 from time import sleep
 
-import ReadFromInterface, Resources
+from ReadFromInterface import ReadFromInterface
 
 class StartStop:
 
@@ -35,17 +35,17 @@ class StartStop:
     # def run(self):
 
     def Sys_Process_Initialization(self):
-        print("System_Process_Initialization", end='\r')
+        print("System Process Initialization", end='\r')
         sleep(0.5)
-        print("System_Process_Initialization.", end='\r')
+        print("System Process Initialization.", end='\r')
         sleep(0.5)
-        print("System_Process_Initialization..", end='\r')
+        print("System Process Initialization..", end='\r')
         sleep(0.5)
-        print("System_Process_Initialization...", end='\r')
+        print("System Process Initialization...", end='\r')
         sleep(0.5)
-        print("System_Process_Initialization....", end='\r')
+        print("System Process Initialization....", end='\r')
         sleep(0.5)
-        print("System_Process_Initialization.....")
+        print("System Process Initialization.....")
         sleep(0.5)
 
         print("Process ReadFromInterface initialized")
@@ -63,6 +63,8 @@ class StartStop:
         print("Process JobToMemory initialized")
         sleep(0.1)
         print("Process InputOutput initialized")
+        sleep(0.05)
+        print("System Processes have been initialized")
         sleep(0.05)
 
         return []

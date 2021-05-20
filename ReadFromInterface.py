@@ -5,6 +5,6 @@ class ReadFromInterface:
         print("ReadFromInterface process has started")
 
     @staticmethod
-    def get_user_input(self):
+    def get_user_input():
         user_input = input("Enter command: ")
         return user_input
