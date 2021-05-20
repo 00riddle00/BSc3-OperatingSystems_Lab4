@@ -25,14 +25,14 @@ Procesų būsenos:
            naudoja primityva "kurti procesa"
        
                ReadFromInterface
-               Checker
-               Loader
-               MainProc
-               Interrupt
-               InputOutput
                PrintLine
-               OS
+               Interrupt
+               MainProc
+               Loader
+               Checker
                JobToMemory
+               InputOutput
+               OS ?? (ar reikia sita sukurti?)
 
        ** sist. resursus
             naudoja primityva "kurti resursa"
