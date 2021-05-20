@@ -3,7 +3,7 @@ class Resources:
     res_mos_end = 0
     res_supervisor_mem = 0
     res_user_mem = 0
-    res_channel_dev = 0
+    res_channel_dev = 1
     res_load_prog_hdd_to_smem = 0
     res_load_fin_hdd_to_smem = 0
     res_load_prog_smem_to_umem = 0

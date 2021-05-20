@@ -25,5 +25,5 @@ if __name__ == '__main__':
 
     # user input is not 'shutdown', so that means that the user
     # has entered the name of the program, possibly with parameters
-    loader.start()
-
+    loader = start_stop.child_processes[1]
+    loader.unblock()

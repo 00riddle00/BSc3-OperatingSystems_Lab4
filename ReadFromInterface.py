@@ -4,7 +4,9 @@ class ReadFromInterface:
     name = 'ReadFromInterface'
     user_input = ''
 
-    def __init__(self):
+    def __init__(self, resources):
+        self.resources = resources
+
         # Possible stages:
         # blocked = -1
         # stopped =  0
@@ -27,8 +29,9 @@ class ReadFromInterface:
         if self.blocked_state == 1:
             self.user_input = input("Enter command: ")
             if self.user_input == 'shutdown':
-                Resources.res_mos_end = 1
+                self.resources.set_res_mos_end(1)
             else:
+                self.resources.set_res_load_prog_hdd_to_smem(1)
                 self.blocked_state = 2
         elif self.blocked_state == 2:
             self.copy_block_to_supervisor_memory()

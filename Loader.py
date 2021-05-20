@@ -24,8 +24,10 @@ class Loader:
         self.resources = resources
         self.start()
 
-
     def start(self):
+        self.blocked_state = 1
+
+    def unblock(self):
         if(self.resources.get_res_load_prog_hdd_to_smem == True & self.blocked_state == 0):
             sleep(1)
             self.blocked_state = 1

@@ -4,6 +4,7 @@ from time import sleep
 
 from ReadFromInterface import ReadFromInterface
 from Resources import Resources
+from Loader import Loader
 
 class StartStop:
     child_processes = []
@@ -24,30 +25,30 @@ class StartStop:
 
     def start(self):
         # RunningProcessTable.add(self)
-        self.clear()
-        sleep(0.2)
+        # self.clear()
+        # sleep(0.2)
         print("Booting up.", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("Booting up..", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("Booting up...", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("Booting up.", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("Booting up..", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("Booting up...", end='\r')
-        sleep(1)
-        self.clear()
-        sleep(0.5)
+        # sleep(1)
+        # self.clear()
+        # sleep(0.5)
 
         print("StartStop process has started")
-        sleep(0.5)
+        # sleep(0.5)
 
-        self.Sys_Resources_Initialization()
-        self.Sys_Process_Initialization()
+        resources = self.Sys_Resources_Initialization()
+        self.Sys_Process_Initialization(resources)
 
-        self.clear()
+        # self.clear()
         print("===============================")
         print("       Welcome to the OS!      ")
         print("===============================")
@@ -59,65 +60,66 @@ class StartStop:
             self.Sys_Resources_Destruction()
             self.Sys_Process_Destruction()
             print("Shutting down.", end='\r')
-            sleep(0.5)
+            # sleep(0.5)
             print("Shutting down..", end='\r')
-            sleep(0.5)
+            # sleep(0.5)
             print("Shutting down...")
-            sleep(0.5)
-            self.clear()
+            # sleep(0.5)
+            # self.clear()
 
     def Sys_Resources_Initialization(self):
         print("Creating System Resources")
-        sleep(0.5)
+        # sleep(0.5)
         resources = Resources()
         print("System Resources have been created")
+        return resources
 
-    def Sys_Process_Initialization(self):
+    def Sys_Process_Initialization(self, resources):
         print("System Process Initialization", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("System Process Initialization.", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("System Process Initialization..", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("System Process Initialization...", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("System Process Initialization....", end='\r')
-        sleep(0.5)
+        # sleep(0.5)
         print("System Process Initialization.....")
-        sleep(0.5)
+        # sleep(0.5)
 
-        read_from_interface = ReadFromInterface()
+        read_from_interface = ReadFromInterface(resources)
+        loader = Loader(resources)
         self.child_processes.append(read_from_interface)
-        # ProcessTable.add(read_from_interface)
+        self.child_processes.append(loader)
         print("Process ReadFromInterface initialized")
-        sleep(0.3)
+        # sleep(0.3)
         print("Process PrintLine initialized")
-        sleep(0.2)
+        # sleep(0.2)
         print("Process Interrupt initialized")
-        sleep(0.1)
+        # sleep(0.1)
         print("Process MainProc initialized")
-        sleep(0.05)
+        # sleep(0.05)
         print("Process Loader initialized")
-        sleep(0.05)
+        # sleep(0.05)
         print("Process Checker initialized")
-        sleep(0.2)
+        # sleep(0.2)
         print("Process JobToMemory initialized")
-        sleep(0.1)
+        # sleep(0.1)
         print("Process InputOutput initialized")
-        sleep(0.05)
+        # sleep(0.05)
         print("System Processes have been initialized")
-        sleep(0.05)
-        return read_from_interface
+        # sleep(0.05)
 
     def Sys_Process_Destruction(self):
         print("Sys_Process_Destruction")
-        sleep(0.5)
+        # sleep(0.5)
         # for process in self.created_processes:
         #     OS.kill_process(process)
 
     def Sys_Resources_Destruction(self):
         print("Sys_Resources_Destruction")
-        sleep(0.5)
+        # sleep(0.5)
         # for resource in self.created_resources:
         #     OS.kill_resource(resource)
 
