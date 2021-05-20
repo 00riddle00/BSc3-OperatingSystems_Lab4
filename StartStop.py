@@ -1,3 +1,5 @@
+import os
+from subprocess import call
 from time import sleep
 
 from ReadFromInterface import ReadFromInterface
@@ -5,46 +7,66 @@ from Resources import Resources
 
 class StartStop:
 
-    # Possible states:
-    #   blocked = -1
-    #   stopped =  0
-    #   ready   =  1
-    #   running =  2
-    state = 0
+    def __init__(self):
+        # Possible stages:
+        # blocked = -1
+        # stopped =  0
+        # ready   =  1
+        # running =  2
+        self.stage = 0
 
-    # one of {0, 1}
-    has_processor = 0
-    started = 0
+        # Possible blocked states:
+        # unblocked               = 0
+        # waiting for res_mos_end = 1
+        self.blocked_state = 0
 
     def start(self):
+        # RunningProcessTable.add(self)
+        print("Booting up", end='\r')
+        sleep(0.5)
+        print("Booting up.", end='\r')
+        sleep(0.5)
+        print("Booting up..", end='\r')
+        sleep(0.5)
+        print("Booting up...", end='\r')
+        sleep(0.5)
+        print("Booting up....", end='\r')
+        sleep(0.5)
+        print("Booting up.....")
+        sleep(2)
+
         print("StartStop process has started")
-        state = 2
         sleep(0.35)
 
         self.Sys_Resources_Initialization()
-        self.Sys_Process_Initialization()
+        read_from_interface = self.Sys_Process_Initialization()
 
-        # Blokavimas laukiant res_mos_end resurso
-        # while not resources.check_res_mos_end():
-        while True:
-            user_input = ReadFromInterface.get_user_input()
-            print("User input is: ", user_input)
+        self.clear()
+        print("==================")
+        print("Welcome to the OS!")
+        print("==================")
 
-        self.Sys_Resources_Destruction()
-        self.Sys_Process_Destruction()
+        self.blocked_state = 1
 
-    # def run(self):
+        return read_from_interface
+
+    def unblock(self):
+        if self.blocked_state == 1:
+            self.Sys_Resources_Destruction()
+            self.Sys_Process_Destruction()
+            print("Shutting down.")
+            sleep(0.5)
+            print("Shutting down..")
+            sleep(0.5)
+            print("Shutting down...")
+            sleep(0.5)
+            self.clear()
 
     def Sys_Resources_Initialization(self):
         print("Creating System Resources")
         sleep(0.5)
         resources = Resources()
         print("System Resources have been created")
-    # Supervizorinė atimintis
-    # Vartotojo atmintis
-    # Kanalų įrenginys
-
-
 
     def Sys_Process_Initialization(self):
         print("System Process Initialization", end='\r')
@@ -79,17 +101,7 @@ class StartStop:
         sleep(0.05)
         print("System Processes have been initialized")
         sleep(0.05)
-
-        return []
-
-        # VirtualMemory
-        # Pager
-        # res_supervisor_memory
-        # res_channel_dev
-# Supervizorinė atimintis
-# Vartotojo atmintis
-# Kanalų įrenginys
-
+        return read_from_interface
 
     def Sys_Process_Destruction(self):
         print("Sys_Process_Destruction")
@@ -102,3 +114,8 @@ class StartStop:
         sleep(0.5)
         # for resource in self.created_resources:
         #     OS.kill_resource(resource)
+
+    def clear(self):
+        # check and make call for specific operating system
+        _ = call('clear' if os.name =='posix' else 'cls')
+
