@@ -6,6 +6,8 @@ from ReadFromInterface import ReadFromInterface
 from Resources import Resources
 
 class StartStop:
+    child_processes = []
+    name = 'StartStop'
 
     def __init__(self):
         # Possible stages:
@@ -22,41 +24,43 @@ class StartStop:
 
     def start(self):
         # RunningProcessTable.add(self)
-        print("Booting up", end='\r')
-        sleep(0.5)
+        self.clear()
+        sleep(0.2)
         print("Booting up.", end='\r')
         sleep(0.5)
         print("Booting up..", end='\r')
         sleep(0.5)
         print("Booting up...", end='\r')
         sleep(0.5)
-        print("Booting up....", end='\r')
+        print("Booting up.", end='\r')
         sleep(0.5)
-        print("Booting up.....")
-        sleep(2)
+        print("Booting up..", end='\r')
+        sleep(0.5)
+        print("Booting up...", end='\r')
+        sleep(1)
+        self.clear()
+        sleep(0.5)
 
         print("StartStop process has started")
-        sleep(0.35)
+        sleep(0.5)
 
         self.Sys_Resources_Initialization()
-        read_from_interface = self.Sys_Process_Initialization()
+        self.Sys_Process_Initialization()
 
         self.clear()
-        print("==================")
-        print("Welcome to the OS!")
-        print("==================")
+        print("===============================")
+        print("       Welcome to the OS!      ")
+        print("===============================")
 
         self.blocked_state = 1
-
-        return read_from_interface
 
     def unblock(self):
         if self.blocked_state == 1:
             self.Sys_Resources_Destruction()
             self.Sys_Process_Destruction()
-            print("Shutting down.")
+            print("Shutting down.", end='\r')
             sleep(0.5)
-            print("Shutting down..")
+            print("Shutting down..", end='\r')
             sleep(0.5)
             print("Shutting down...")
             sleep(0.5)
@@ -83,6 +87,8 @@ class StartStop:
         sleep(0.5)
 
         read_from_interface = ReadFromInterface()
+        self.child_processes.append(read_from_interface)
+        # ProcessTable.add(read_from_interface)
         print("Process ReadFromInterface initialized")
         sleep(0.3)
         print("Process PrintLine initialized")

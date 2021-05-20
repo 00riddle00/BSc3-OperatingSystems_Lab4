@@ -1,23 +1,23 @@
 from Resources import Resources
 
 class ReadFromInterface:
-
-    # Possible stages:
-    # blocked = -1
-    # stopped =  0
-    # ready   =  1
-    # running =  2
-    stage = 0
-
-    # Possible blocked states:
-    # unblocked                         = 0
-    # waiting for res_user_input        = 1
-    # waiting for res_supervisor_memory = 2
-    blocked_state = 0
-
+    name = 'ReadFromInterface'
     user_input = ''
 
     def __init__(self):
+        # Possible stages:
+        # blocked = -1
+        # stopped =  0
+        # ready   =  1
+        # running =  2
+        self.stage = 0
+
+        # Possible blocked states:
+        # unblocked                         = 0
+        # waiting for res_user_input        = 1
+        # waiting for res_supervisor_memory = 2
+        self.blocked_state = 0
+
         self.start()
 
     def start(self):
@@ -26,8 +26,11 @@ class ReadFromInterface:
     def unblock(self):
         if self.blocked_state == 1:
             self.user_input = input("Enter command: ")
-            self.blocked_state = 3
-        elif self.blocked_state == 3:
+            if self.user_input == 'shutdown':
+                Resources.res_mos_end = 1
+            else:
+                self.blocked_state = 2
+        elif self.blocked_state == 2:
             self.copy_block_to_supervisor_memory()
             self.blocked_state = 1
 
