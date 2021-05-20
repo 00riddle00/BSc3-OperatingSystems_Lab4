@@ -1,6 +1,7 @@
 from time import sleep
 
 from ReadFromInterface import ReadFromInterface
+from Resources import Resources
 
 class StartStop:
 
@@ -20,8 +21,8 @@ class StartStop:
         state = 2
         sleep(0.35)
 
-        processes = self.Sys_Process_Initialization()
-        resources = self.Sys_Resources_Initialization()
+        self.Sys_Resources_Initialization()
+        self.Sys_Process_Initialization()
 
         # Blokavimas laukiant res_mos_end resurso
         # while not resources.check_res_mos_end():
@@ -33,6 +34,17 @@ class StartStop:
         self.Sys_Process_Destruction()
 
     # def run(self):
+
+    def Sys_Resources_Initialization(self):
+        print("Creating System Resources")
+        sleep(0.5)
+        resources = Resources()
+        print("System Resources have been created")
+    # Supervizorinė atimintis
+    # Vartotojo atmintis
+    # Kanalų įrenginys
+
+
 
     def Sys_Process_Initialization(self):
         print("System Process Initialization", end='\r')
@@ -48,6 +60,7 @@ class StartStop:
         print("System Process Initialization.....")
         sleep(0.5)
 
+        read_from_interface = ReadFromInterface()
         print("Process ReadFromInterface initialized")
         sleep(0.3)
         print("Process PrintLine initialized")
@@ -77,14 +90,6 @@ class StartStop:
 # Vartotojo atmintis
 # Kanalų įrenginys
 
-    def Sys_Resources_Initialization(self):
-        print("System_Resources_Initialization")
-        sleep(0.5)
-        return []
-
-# Supervizorinė atimintis
-# Vartotojo atmintis
-# Kanalų įrenginys
 
     def Sys_Process_Destruction(self):
         print("Sys_Process_Destruction")

@@ -20,7 +20,9 @@ Procesų būsenos:
 * ss is autoloaded on boot (as a root process)
     1. ss gauna procesoriu
     2. Tuomet ss sukuria:
-       ** kitus sist. procesus (pirma procesus sukuria)
+       ** sist. resursus (pirma resursus sukuria)
+           naudoja primityva "kurti resursa"
+       ** kitus sist. procesus 
            (StartStop darbo pradzioje sukuria beveik visus procesus)
            naudoja primityva "kurti procesa"
        
@@ -34,8 +36,6 @@ Procesų būsenos:
                InputOutput
                OS ?? (ar reikia sita sukurti?)
 
-       ** sist. resursus
-            naudoja primityva "kurti resursa"
 
 * StartStop blokuojasi ("praso") laukdamas pranešimo apie OS darbo pabaigą.
     Tuomet naikina:
