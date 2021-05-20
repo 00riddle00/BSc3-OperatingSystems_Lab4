@@ -45,8 +45,8 @@ class StartStop:
         print("StartStop process has started")
         # sleep(0.5)
 
-        resources = self.Sys_Resources_Initialization()
-        self.Sys_Process_Initialization(resources)
+        self.resources = self.Sys_Resources_Initialization()
+        self.Sys_Process_Initialization()
 
         # self.clear()
         print("===============================")
@@ -74,7 +74,7 @@ class StartStop:
         print("System Resources have been created")
         return resources
 
-    def Sys_Process_Initialization(self, resources):
+    def Sys_Process_Initialization(self):
         print("System Process Initialization", end='\r')
         # sleep(0.5)
         print("System Process Initialization.", end='\r')
@@ -88,8 +88,8 @@ class StartStop:
         print("System Process Initialization.....")
         # sleep(0.5)
 
-        read_from_interface = ReadFromInterface(resources)
-        loader = Loader(resources)
+        read_from_interface = ReadFromInterface(self.resources)
+        loader = Loader(self.resources)
         self.child_processes.append(read_from_interface)
         self.child_processes.append(loader)
         print("Process ReadFromInterface initialized")
