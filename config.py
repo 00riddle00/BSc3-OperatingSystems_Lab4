@@ -5,7 +5,7 @@ from subprocess import call
 from time import sleep
 
 use_cls = True
-use_sleep = True
+use_sleep = False
 
 
 def cls():

@@ -1,4 +1,5 @@
 from StartStop import StartStop
+from ProcessTable import ProcessTable
 
 if __name__ == '__main__':
 
@@ -17,6 +18,7 @@ if __name__ == '__main__':
     start_stop.start()
 
     resources = start_stop.resources
+    process_table = start_stop.process_table
 
     read_from_interface = start_stop.child_processes[0]
     read_from_interface.unblock()  # user input will be read here

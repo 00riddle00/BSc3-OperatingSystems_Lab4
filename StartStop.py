@@ -3,6 +3,7 @@ from config import cls, _sleep, clear_line
 from ReadFromInterface import ReadFromInterface
 from Resources import Resources
 from Loader import Loader
+from ProcessTable import ProcessTable
 
 
 class StartStop:
@@ -133,6 +134,7 @@ class StartStop:
         _sleep(0.15)
         print("System Processes have been initialized")
         _sleep(0.5)
+        self.process_table = ProcessTable()
         cls()
 
     def Sys_Process_Destruction(self):
