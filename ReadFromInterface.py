@@ -1,19 +1,20 @@
 from Process import Process
+from Utils import *
+
 
 class ReadFromInterface(Process):
-    name = 'ReadFromInterface'
+    name = PROC_READ_FROM_INTERFACE
+
+    # Possible blocked states:
+    # unblocked                      = 0
+    # waiting for RES_USER_INTERFACE = 1
+    # waiting for RES_SUPERVISOR_MEM = 2
+    blocked_state = 0
+
     user_input = ''
-    children = []
 
-    def __init__(self, resources):
-        self.resources = resources
-
-        # Possible blocked states:
-        # unblocked                         = 0
-        # waiting for res_user_input        = 1
-        # waiting for res_supervisor_memory = 2
-        self.blocked_state = 0
-
+    def __init__(self, resources, process_table):
+        super(ReadFromInterface, self).__init__(resources, process_table)
         self.start()
 
     def start(self):
@@ -24,9 +25,9 @@ class ReadFromInterface(Process):
         if self.blocked_state == 1:
             self.user_input = input("Enter command: ")
             if self.user_input == 'poweroff':
-                self.resources.set_res_mos_end(1)
+                self.resources.free(RES_MOS_END)
             else:
-                self.resources.set_res_load_prog_hdd_to_smem(self.user_input)
+                self.resources.free(RES_HDD_TO_SUPERVISOR_MEM, self.user_input)
                 self.blocked_state = 2
         elif self.blocked_state == 2:
             print("[ReadFromInterface]: The program is now in supervisor memory")

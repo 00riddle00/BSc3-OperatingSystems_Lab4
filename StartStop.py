@@ -13,7 +13,8 @@ class StartStop(Process):
 
     # Possible blocked states:
     # unblocked               = 0
-    # waiting for res_mos_end = 1
+    # waiting for RES_MOS_END = 1
+    blocked_state = 0
 
     def start(self):
         super(StartStop, self).start()
@@ -39,8 +40,8 @@ class StartStop(Process):
         print("StartStop process has started")
         _sleep(0.5)
 
-        self.Sys_Resources_Initialization()
-        self.Sys_Process_Initialization()
+        self.init_sys_resources()
+        self.init_sys_processes()
 
         cls()
         print("===============================")
@@ -52,8 +53,8 @@ class StartStop(Process):
 
     def unblock(self):
         if self.blocked_state == 1:
-            self.Sys_Process_Destruction()
-            self.Sys_Resources_Destruction()
+            self.destroy_sys_processes()
+            self.destroy_sys_resources()
             print("Shutting down.", end='\r')
             _sleep(0.5)
             print("Shutting down..", end='\r')
@@ -67,7 +68,7 @@ class StartStop(Process):
             _sleep(0.7)
             cls()
 
-    def Sys_Resources_Initialization(self):
+    def init_sys_resources(self):
         print("Creating System Resources.", end='\r')
         _sleep(0.4)
         print("Creating System Resources..", end='\r')
@@ -83,7 +84,7 @@ class StartStop(Process):
         print("System Resources have been created")
         _sleep(0.5)
 
-    def Sys_Process_Initialization(self):
+    def init_sys_processes(self):
         print("System Process Initialization", end='\r')
         _sleep(0.5)
         print("System Process Initialization.", end='\r')
@@ -105,8 +106,8 @@ class StartStop(Process):
         print("System Process Initialization")
         _sleep(0.2)
 
-        read_from_interface = ReadFromInterface(self.resources)
-        loader = Loader(self.resources)
+        read_from_interface = ReadFromInterface(self.resources, None)
+        loader = Loader(self.resources, None)
 
         self.add_child(read_from_interface)
         self.add_child(loader)
@@ -132,7 +133,7 @@ class StartStop(Process):
         self.process_table = ProcessTable()
         cls()
 
-    def Sys_Process_Destruction(self):
+    def destroy_sys_processes(self):
         print(".", end='\r')
         _sleep(0.5)
         clear_line()
@@ -145,13 +146,13 @@ class StartStop(Process):
         print("")
         _sleep(0.5)
 
-        print("Sys_Process_Destruction")
+        print("System Process Destruction")
         _sleep(0.5)
         # for process in self.created_processes:
         #     OS.kill_process(process)
 
-    def Sys_Resources_Destruction(self):
-        print("Sys_Resources_Destruction")
+    def destroy_sys_resources(self):
+        print("System Resources Destruction")
         _sleep(0.5)
         # for resource in self.created_resources:
         #     OS.kill_resource(resource)

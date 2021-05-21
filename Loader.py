@@ -1,30 +1,27 @@
 from time import sleep
+from Process import Process
 from Resources import Resources
+from Utils import *
 
-class Loader:
-    resources = Resources
-    # Possible states:
-    #   blocked = -1
-    #   stopped =  0
-    #   ready   =  1
-    #   running =  2
-    stage = 0
-    fileName = ''
+
+class Loader(Process):
+    name = PROC_LOADER
+
     # Possible blocked states:
-    # unblocked = 0
-    # user_input = 1
+    # unblocked                         = 0
+    # waiting for RES_USER_INTERFACE    = 1
+    # waiting for RES_SUPERVISOR_MEMORY = 2
     # supervisor_memory = 2
     blocked_state = 0
 
-    # one of {0, 1}
-    has_processor = 0
-    started = 0
+    fileName = ''
 
-    def __init__(self, resources):
-        self.resources = resources
+    def __init__(self, resources, process_table):
+        super(Loader, self).__init__(resources, process_table)
         self.start()
 
     def start(self):
+        super(Loader, self)
         self.blocked_state = 1
 
     def unblock(self):
