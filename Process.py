@@ -4,7 +4,6 @@ from ProcessTable import ProcessTable
 
 # class Process(metaclass=ABCMeta):
 class Process(object):
-    child_processes = []
 
     def __init__(self, resources, process_table):
         self.resources = resources
@@ -29,9 +28,15 @@ class Process(object):
     def name(self):
         pass
 
+    @property
+    @abstractmethod
+    def children(self):
+        pass
+
     @abstractmethod
     def start(self):
-        self.process_table.add(self)
+        if self.process_table:
+            self.process_table.add(self)
 
     @abstractmethod
     def unblock(self):

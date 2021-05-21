@@ -4,26 +4,19 @@ from ReadFromInterface import ReadFromInterface
 from Resources import Resources
 from Loader import Loader
 from ProcessTable import ProcessTable
+from Process import Process
 
 
-class StartStop:
-    child_processes = []
+class StartStop(Process):
     name = 'StartStop'
+    children = dict()
 
-    def __init__(self):
-        # Possible stages:
-        # blocked = -1
-        # stopped =  0
-        # ready   =  1
-        # running =  2
-        self.stage = 0
-
-        # Possible blocked states:
-        # unblocked               = 0
-        # waiting for res_mos_end = 1
-        self.blocked_state = 0
+    # Possible blocked states:
+    # unblocked               = 0
+    # waiting for res_mos_end = 1
 
     def start(self):
+        super(StartStop, self).start()
         # RunningProcessTable.add(self)
         cls()
         _sleep(0.2)
@@ -114,8 +107,8 @@ class StartStop:
 
         read_from_interface = ReadFromInterface(self.resources)
         loader = Loader(self.resources)
-        self.child_processes.append(read_from_interface)
-        self.child_processes.append(loader)
+        self.children['read_from_interface'] = read_from_interface
+        self.children['loader'] = read_from_interface
         print("Process ReadFromInterface initialized")
         _sleep(0.3)
         print("Process PrintLine initialized")
