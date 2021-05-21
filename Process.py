@@ -23,14 +23,17 @@ class Process(object):
         # ...
         self.blocked_state = 0
 
-    @property
-    @abstractmethod
-    def name(self):
-        pass
+        self.children = dict()
+
+    def add_child(self, child):
+        self.children[child.name] = child
+
+    def get_child(self, child_name):
+        return self.children[child_name]
 
     @property
     @abstractmethod
-    def children(self):
+    def name(self):
         pass
 
     @abstractmethod

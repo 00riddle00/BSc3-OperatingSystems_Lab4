@@ -1,18 +1,12 @@
-from Resources import Resources
+from Process import Process
 
-class ReadFromInterface:
+class ReadFromInterface(Process):
     name = 'ReadFromInterface'
     user_input = ''
+    children = []
 
     def __init__(self, resources):
         self.resources = resources
-
-        # Possible stages:
-        # blocked = -1
-        # stopped =  0
-        # ready   =  1
-        # running =  2
-        self.stage = 0
 
         # Possible blocked states:
         # unblocked                         = 0
@@ -23,6 +17,7 @@ class ReadFromInterface:
         self.start()
 
     def start(self):
+        super(ReadFromInterface, self)
         self.blocked_state = 1
 
     def unblock(self):

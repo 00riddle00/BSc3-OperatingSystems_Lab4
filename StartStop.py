@@ -1,5 +1,5 @@
 from config import cls, _sleep, clear_line
-import Utils as ut
+from Utils import *
 
 from ReadFromInterface import ReadFromInterface
 from Resources import Resources
@@ -9,18 +9,7 @@ from Process import Process
 
 
 class StartStop(Process):
-    name = 'StartStop'
-
-    children = {
-        ut.PROCS['rfi'],
-        ut.PROCS['chk'],
-        ut.PROCS['ldr'],
-        ut.PROCS['mproc'],
-        ut.PROCS['int'],
-        ut.PROCS['io'],
-        ut.PROCS['printl'],
-        ut.PROCS['jmem'],
-    }
+    name = PROC_START_STOP
 
     # Possible blocked states:
     # unblocked               = 0
@@ -118,8 +107,10 @@ class StartStop(Process):
 
         read_from_interface = ReadFromInterface(self.resources)
         loader = Loader(self.resources)
-        self.children['read_from_interface'] = read_from_interface
-        self.children['loader'] = read_from_interface
+
+        self.add_child(read_from_interface)
+        self.add_child(loader)
+
         print("Process ReadFromInterface initialized")
         _sleep(0.3)
         print("Process PrintLine initialized")
