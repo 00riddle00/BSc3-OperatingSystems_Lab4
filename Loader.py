@@ -25,23 +25,28 @@ class Loader(Process):
         self.blocked_state = 1
 
     def unblock(self):
-        if(self.resources.get_res_load_prog_hdd_to_smem() == '' and self.blocked_state == 1):
+        # if (self.resources.get_res_load_prog_hdd_to_smem() == '' and self.blocked_state == 1):
+        if self.resources[RES_HDD_TO_SUPERVISOR_MEM] == '' and self.blocked_state == 1:
             sleep(1)
             print("Waiting res_load_prog_hdd_to_smem")
         else:
-            self.fileName = self.resources.get_res_load_prog_hdd_to_smem()
-            self.resources.set_res_load_prog_hdd_to_smem(0)
+            # self.fileName = self.resources.get_res_load_prog_hdd_to_smem()
+            self.fileName = self.resources[RES_HDD_TO_SUPERVISOR_MEM]
+            # self.resources.set_res_load_prog_hdd_to_smem(0)
+            self.resources.free(RES_HDD_TO_SUPERVISOR_MEM)
             self.blocked_state = 2
             print("Got resource res_load_prog_hdd_to_smem  @", self.fileName, "@  -> stage 1")
-        if(self.resources.get_res_channel_dev == False & self.blocked_state == 2):
+        # if(self.resources.get_res_channel_dev == False & self.blocked_state == 2):
+        if not self.resources[RES_CHN_DEVICE] and self.blocked_state == 2:
             sleep(1)
             print("Waiting res_channel_dev")
         else:
             self.blocked_state = 1
-            self.resources.set_res_channel_dev(4)
+            # self.resources.set_res_channel_dev(4)
+            self.resources[RES_CHN_DEVICE] = 4
             print("Got resource res_channel_dev -> stage 2")
 
             # Atlaisvinam ""
-            self.resources.set_res_channel_dev(1)
+            self.resources.free(RES_CHN_DEVICE)
             # Atlaisvinam ""
-            self.resources.set_res_load_fin_hdd_to_smem(1)
+            self.resources.free(RES_HDD_TO_SUPERVISOR_MEM_FIN)
