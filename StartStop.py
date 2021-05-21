@@ -1,4 +1,5 @@
 from config import cls, _sleep, clear_line
+import Utils as ut
 
 from ReadFromInterface import ReadFromInterface
 from Resources import Resources
@@ -9,7 +10,17 @@ from Process import Process
 
 class StartStop(Process):
     name = 'StartStop'
-    children = dict()
+
+    children = {
+        ut.PROCS['rfi'],
+        ut.PROCS['chk'],
+        ut.PROCS['ldr'],
+        ut.PROCS['mproc'],
+        ut.PROCS['int'],
+        ut.PROCS['io'],
+        ut.PROCS['printl'],
+        ut.PROCS['jmem'],
+    }
 
     # Possible blocked states:
     # unblocked               = 0

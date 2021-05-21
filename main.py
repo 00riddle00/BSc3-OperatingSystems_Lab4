@@ -1,5 +1,5 @@
 from StartStop import StartStop
-from ProcessTable import ProcessTable
+import Utils as ut
 
 if __name__ == '__main__':
 
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     resources = start_stop.resources
     process_table = start_stop.process_table
 
-    read_from_interface = start_stop.children['read_from_interface']
+    read_from_interface = start_stop.children['rfi']
     read_from_interface.unblock()  # user input will be read here
 
     if resources.get_res_mos_end():  # if user input is 'shutdown', the OS powers off
@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     # user input is not 'shutdown', so that means that the user
     # has entered the name of the program, possibly with parameters
-    loader = start_stop.children['loader']
+    loader = start_stop.children['ldr']
     loader.unblock()
 
     if resources.get_res_load_fin_hdd_to_smem():

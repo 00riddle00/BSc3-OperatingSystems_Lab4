@@ -1,3 +1,36 @@
+import Utils as ut
+
+
+class ResourcesTest:
+    resources = {
+        ut.RES['mend']:   0,
+        ut.RES['smem']:   0,
+        ut.RES['umem']:   0,
+        ut.RES['chdev']:  0,
+        ut.RES['hdds']:  '',
+        ut.RES['hdds+']:  0,
+        ut.RES['su']:    '',
+        ut.RES['su+']:    0,
+        ut.RES['ts']:     0,
+        ut.RES['uif']:    0,
+        ut.RES['non']:    0,
+        ut.RES['sin']:    0,
+        ut.RES['fint']:   0,
+        ut.RES['ui']:     0
+    }
+
+    def __getitem__(self, key):
+        if key not in self.resources.keys():
+            raise KeyError
+
+        return self.resources[key]
+
+    def __setitem__(self, key, value):
+        if key not in self.resources.keys():
+            raise KeyError
+
+        self.resources[key] = value
+
 
 class Resources:
     res_mos_end = 0
