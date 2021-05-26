@@ -1,8 +1,7 @@
-from abc import abstractmethod, ABCMeta
+from abc import abstractmethod
 from ProcessTable import ProcessTable
 
 
-# class Process(metaclass=ABCMeta):
 class Process(object):
 
     def __init__(self, resources, process_table):
@@ -23,6 +22,11 @@ class Process(object):
 
     def get_child(self, child_name):
         return self.children[child_name]
+
+    @property
+    @abstractmethod
+    def id(self):
+        pass
 
     @property
     @abstractmethod

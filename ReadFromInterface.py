@@ -3,6 +3,7 @@ from Utils import *
 
 
 class ReadFromInterface(Process):
+    id = 2
     name = PROC_READ_FROM_INTERFACE
 
     # Possible blocked states:

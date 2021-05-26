@@ -9,6 +9,7 @@ from Process import Process
 
 
 class StartStop(Process):
+    id = 1
     name = PROC_START_STOP
 
     # Possible blocked states:

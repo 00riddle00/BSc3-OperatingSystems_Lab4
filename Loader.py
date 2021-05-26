@@ -5,6 +5,7 @@ from Utils import *
 
 
 class Loader(Process):
+    id = 4
     name = PROC_LOADER
 
     # Possible blocked states:
