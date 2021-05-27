@@ -12,6 +12,7 @@ class Resources:
         RES_HDD_TO_SUPERVISOR_MEM_FIN:       0,
         RES_TASK_IN_SUPERVISOR_MEM:          0,
         RES_USER_MEM:                        0,
+        RES_PROGRAM_CKECKED:                '',
         RES_SUPERVISOR_MEM_TO_USER_MEM:     '',
         RES_SUPERVISOR_MEM_TO_USER_MEM_FIN:  0,
         RES_USER_INPUT:                      0,

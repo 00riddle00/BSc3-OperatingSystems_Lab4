@@ -1,86 +1,62 @@
 from time import sleep
-
+from Process import Process
 from Resources import Resources
+from Utils import *
 
-class JobToMemory:
-    resources = Resources
+
+class JobToMemory(Process):
+    name = PROC_LOADER
+
     # Possible states:
     #   blocked = -1
     #   stopped =  0
     #   ready   =  1
     #   running =  2
-    stage = 0
 
     # Possible blocked states:
     # unblocked = 0
     # user_input = 1
     # supervisor_memory = 2
-    blocked_state = 0
 
-    # one of {0, 1}
-    has_processor = 0
-    started = 0
+    switchCase = 1
 
-    def __init__(self, resources):
-        self.resources = resources
-        self.start()
+    def __init__(self, resources, process_table):
+        super(JobToMemory, self).__init__(resources, process_table)
+        self.switchCase = 1
 
+    def Execute(self):
 
-    def start(self):
-        while(res_Program_OK == '' & self.blocked_state == 0):
-            sleep(1)
-            print("Waiting for program_OK")
-        self.blocked_state = 1
-        print("Got resource program_OK -> stage 1")
+        if self.switchCase == 1:
+            if self.resources[RES_PROGRAM_CKECKED] == '':
+                print("BLOCKED Waiting for RES_PROGRAM_CKECKED  ")
+            else:
+                print("Got resource program_OK -> stage 2")
+                self.switchCase = 2
 
-        while(res_User_mem == False & self.blocked_state == 1):
-            sleep(1)
-            print("Waiting for res_User_mem")
-        self.blocked_state = 2
-        print("Got resource res_User_mem -> stage 2")
+        elif self.switchCase == 2:
+            if not self.resources[RES_USER_MEM]:
+                print("BLOCKED Waiting for res_User_mem")
+            else:
+                print("Got resource res_User_mem -> stage 3")
+                self.switchCase = 3
 
-        # Atlaisvinam "Load program from supervisor memory to user memory"
-        res_load_prog_smem_to_umem = res_Program_OK
+        elif self.switchCase == 3:
+            # Atlaisvinam "Load program from supervisor memory to user memory"
+            self.resources[RES_SUPERVISOR_MEM_TO_USER_MEM] = self.resources[RES_PROGRAM_CKECKED]
+            self.switchCase = 4
 
+        elif self.switchCase == 4:
+            if not self.resources[RES_CHN_DEVICE]:
+                print("BLOCKED Waiting for RES_CHN_DEVICE")
+            else:
+                print("Got resource RES_CHN_DEVICE -> stage 5")
+                self.switchCase = 5
 
-        # while(res_load_prog_smem_to_umem == False & self.blocked_state == 2):
-        #     sleep(1)
-        #     print("Waiting for res_load_prog_smem_to_umem")
-        # self.blocked_state = 3
-        # print("Got resource res_load_prog_smem_to_umem -> stage 3")
-
-        while(res_channel_dev == False & self.blocked_state == 2):
-            sleep(1)
-            print("Waiting for res_load_prog_smem_to_umem")
-        self.blocked_state = 3
-        print("Got resource res_channel_dev -> stage 3")
-        res_channel_dev = 5 #5 - random tiesiog reiksme kad is cia i ten sukelt reikia
-
-
-        # Atlaisvinam "load_fin_smem_to_umem"
-        load_fin_smem_to_umem = "Complete"
-        # Atlaisvinam "res_channel_dev"
-        res_channel_dev = 0
-        # Atlaisvinam "res_supervisor_mem"
-        res_supervisor_mem = 0
-
-#     def start(self):
-#         self.blocked_state = 1
-#
-#     def unblock(self):
-#         if self.blocked_state == 1:
-#             self.user_input = input("Enter command: ")
-#             self.blocked_state = 3
-#         if self.blocked_state == 3:
-#             # self.copy_block_to_supervisor_memory()
-#             pass
-#
-#     @staticmethod
-#     def get_user_input():
-#         user_input = input("Enter command: ")
-#         return user_input
-#
-#     def copy_block_to_supervisor_memory(self):
-#         print("copy_block_to_supervisor_memory")
-#
-# # ReadFromInterface -> block
+        elif self.switchCase == 5:
+            # Atlaisvinam "load_fin_smem_to_umem"
+            self.resources[RES_SUPERVISOR_MEM_TO_USER_MEM_FIN] = "Complete"
+            # Atlaisvinam "res_channel_dev"
+            self.resources.free(RES_CHN_DEVICE)
+            # Atlaisvinam "res_supervisor_mem"
+            self.resources.free(RES_SUPERVISOR_MEM)
+            self.switchCase = 1

@@ -4,7 +4,7 @@ import sys
 from subprocess import call
 from time import sleep
 
-use_cls = True
+use_cls = False
 use_sleep = False
 
 
@@ -12,6 +12,7 @@ def cls():
     if use_cls:
         # check and make call for specific operating system
         _ = call('clear' if os.name == 'posix' else 'cls')
+
 
 
 def _sleep(seconds):
